@@ -28,5 +28,15 @@
     "updated": "2025-04-15T00:00:00Z",
     "icon_url": "https://media.discordapp.net/attachments/1255402289263411222/1380546172225191936/image.png?ex=68444550&is=6842f3d0&hm=e780f07ee79877651c4cd4ea72f44447c57ef1ffe5a2444c431113a1c0ccf0ac&=&format=webp&quality=lossless&width=229&height=220",
     "download_url": "https://github.com/csgdV2/PlugStore-Plugins/releases/download/angel/angle.sk"
+  },
+  {
+    "id": 4,
+    "name": "Knowledge SMP",
+    "author": "hero123red456gg",
+    "description": "Sharpness Video...",
+    "tags": ["1.21", "Skript [2.9.5]", "SkBee [3.6.6]", "SkParticles [Latest]"],
+    "updated": "2025-06-06T00:00:00Z",
+    "icon_url": "https://media.discordapp.net/attachments/1376197765671026818/1380549771496001586/6da27dab8f3d993f57a8c5d9e3595d2fac5f312f.png?ex=684448aa&is=6842f72a&hm=c566457437508dcc0c996459966e9a2859e4a38e1c51dab5158b88be6eeb9bdf&=&format=webp&quality=lossless&width=640&height=640",
+    "download_url": "https://cdn.discordapp.com/attachments/1376197765671026818/1380548109645381813/KnowledgeSMPv3.sk?ex=6844471e&is=6842f59e&hm=8567098359ac5710a240fea9ba0849449a0dee340c410216c2ececd414a0be38&"
   }
 ]
