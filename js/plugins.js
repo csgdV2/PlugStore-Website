@@ -1,4 +1,4 @@
-// DOM Elements (hamburger menu elements removed)
+// DOM Elements
 const searchInput = document.querySelector('.search-input');
 const sortBy = document.getElementById('sort-by');
 const pluginList = document.getElementById('plugin-list');
@@ -7,8 +7,8 @@ const nextPageBtn = document.getElementById('next-page');
 const pageNumbers = document.getElementById('page-numbers');
 
 // GitHub configuration
-const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/csgdV2/PlugStore-Website/main/plugins.json';
-const CACHE_DURATION = 0 * 60 * 1000; // 30 minutes cache
+const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/your-username/plugins-data/main/plugins.json';
+const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes cache
 
 // State variables
 let currentPage = 1;
@@ -39,12 +39,13 @@ async function fetchPlugins() {
   }
 
   try {
-    pluginList.innerHTML = '<div class="loading">Loading plugins...</div>';
+    showStatusMessage('Loading plugins...');
     
     const response = await fetch(`${GITHUB_RAW_URL}?t=${now}`);
     if (!response.ok) throw new Error('Failed to fetch');
     
-    allPlugins = await response.json();
+    const data = await response.json();
+    allPlugins = Array.isArray(data) ? data : data.plugins || [];
     filteredPlugins = [...allPlugins];
     
     // Update cache
@@ -56,18 +57,24 @@ async function fetchPlugins() {
     renderPlugins();
   } catch (error) {
     console.error('Error fetching plugins:', error);
-    pluginList.innerHTML = '<div class="error">Failed to load plugins. Please try again later.</div>';
+    showStatusMessage('Failed to load plugins. Please try again later.', 'error');
     
     // Fallback to cached data if available
     if (cachedData) {
-      allPlugins = JSON.parse(cachedData).data;
+      const cached = JSON.parse(cachedData).data;
+      allPlugins = Array.isArray(cached) ? cached : cached.plugins || [];
       filteredPlugins = [...allPlugins];
       renderPlugins();
     }
   }
 }
 
-// Render plugins based on current filters and pagination
+// Show status messages without duplicates
+function showStatusMessage(message, type = 'loading') {
+  pluginList.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+}
+
+// Render plugins with optimized layout
 function renderPlugins() {
   pluginList.innerHTML = '';
   
@@ -76,25 +83,54 @@ function renderPlugins() {
   const paginatedPlugins = filteredPlugins.slice(startIndex, endIndex);
   
   if (paginatedPlugins.length === 0) {
-    pluginList.innerHTML = '<div class="no-results">No plugins found matching your search</div>';
+    showStatusMessage('No plugins found matching your search', 'no-results');
     return;
   }
 
   paginatedPlugins.forEach(plugin => {
     const pluginCard = document.createElement('div');
     pluginCard.className = 'plugin-card';
+    
+    // Create tags with proper spacing
+    const tagsHTML = plugin.tags 
+      ? plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ') 
+      : '';
+    
+    // Create download button if URL exists
+    const downloadButtonHTML = plugin.download_url
+      ? `<a href="${plugin.download_url}" class="download-btn" target="_blank" rel="noopener noreferrer">
+           Download
+         </a>`
+      : `<button class="download-btn disabled" disabled>
+           Unavailable
+         </button>`;
+    
     pluginCard.innerHTML = `
-      <div class="plugin-header">
-        <h3>${plugin.name} <span class="plugin-author">by ${plugin.author}</span></h3>
-        <div class="plugin-tags">
-          ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+      <div class="plugin-content">
+        <div class="plugin-header">
+          <div class="plugin-icon-container">
+            <img src="${plugin.icon_url || 'assets/default-plugin-icon.png'}" 
+                 alt="${plugin.name} Icon" 
+                 class="plugin-icon"
+                 onerror="this.src='assets/default-plugin-icon.png'">
+          </div>
+          <div class="plugin-title">
+            <h3>${plugin.name}</h3>
+            <span class="plugin-author">by ${plugin.author}</span>
+          </div>
+          <div class="plugin-actions">
+            ${downloadButtonHTML}
+          </div>
         </div>
-      </div>
-      <p class="plugin-description">${plugin.description}</p>
-      <div class="plugin-stats">
-        <span>${formatNumber(plugin.downloads)} downloads</span>
-        ${plugin.followers ? `<span>${formatNumber(plugin.followers)} followers</span>` : ''}
-        <span>Updated ${formatDate(plugin.updated)}</span>
+        <div class="plugin-meta">
+          <div class="plugin-tags">
+            ${tagsHTML}
+          </div>
+          <span class="update-date">Updated ${formatDate(plugin.updated)}</span>
+        </div>
+        <div class="plugin-description">
+          <p>${plugin.description}</p>
+        </div>
       </div>
     `;
     pluginList.appendChild(pluginCard);
@@ -102,6 +138,9 @@ function renderPlugins() {
   
   updatePagination();
 }
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', init);
 
 // Update pagination controls
 function updatePagination() {
@@ -111,19 +150,21 @@ function updatePagination() {
   // Previous button state
   prevPageBtn.disabled = currentPage === 1;
 
-  // Page numbers
-  const maxVisiblePages = 5;
-  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  // Create page numbers with ellipsis for large ranges
+  let startPage = Math.max(1, currentPage - 2);
+  let endPage = Math.min(totalPages, currentPage + 2);
 
-  if (endPage - startPage + 1 < maxVisiblePages) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  if (currentPage - 1 < 2) {
+    endPage = Math.min(5, totalPages);
+  }
+  if (totalPages - currentPage < 2) {
+    startPage = Math.max(1, totalPages - 4);
   }
 
   if (startPage > 1) {
     addPageNumber(1);
     if (startPage > 2) {
-      pageNumbers.innerHTML += '<span class="page-dots">...</span>';
+      pageNumbers.appendChild(createEllipsis());
     }
   }
 
@@ -133,7 +174,7 @@ function updatePagination() {
 
   if (endPage < totalPages) {
     if (endPage < totalPages - 1) {
-      pageNumbers.innerHTML += '<span class="page-dots">...</span>';
+      pageNumbers.appendChild(createEllipsis());
     }
     addPageNumber(totalPages);
   }
@@ -142,7 +183,13 @@ function updatePagination() {
   nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
 }
 
-// Helper to add a page number button
+function createEllipsis() {
+  const ellipsis = document.createElement('span');
+  ellipsis.className = 'page-ellipsis';
+  ellipsis.textContent = '...';
+  return ellipsis;
+}
+
 function addPageNumber(page) {
   const pageNumber = document.createElement('span');
   pageNumber.className = `page-number ${page === currentPage ? 'active' : ''}`;
@@ -159,13 +206,18 @@ function addPageNumber(page) {
 
 // Filter and sort plugins
 function filterAndSortPlugins() {
-  const searchTerm = searchInput.value.toLowerCase();
+  const searchTerm = searchInput.value.toLowerCase().trim();
   
   // Filter by search term
-  filteredPlugins = allPlugins.filter(plugin => 
-    plugin.name.toLowerCase().includes(searchTerm) || 
-    plugin.description.toLowerCase().includes(searchTerm)
-  );
+  filteredPlugins = allPlugins.filter(plugin => {
+    const nameMatch = plugin.name.toLowerCase().includes(searchTerm);
+    const descMatch = plugin.description.toLowerCase().includes(searchTerm);
+    const tagMatch = plugin.tags?.some(tag => 
+      tag.toLowerCase().includes(searchTerm)
+    ) || false;
+    
+    return nameMatch || descMatch || tagMatch;
+  });
 
   // Sort plugins
   const sortValue = sortBy.value;
@@ -173,15 +225,15 @@ function filterAndSortPlugins() {
     if (sortValue === 'newest') {
       return new Date(b.updated) - new Date(a.updated);
     } else {
-      // Relevance sorting - prioritize matches in name over description
+      // Relevance sorting
       const aNameMatch = a.name.toLowerCase().includes(searchTerm);
       const bNameMatch = b.name.toLowerCase().includes(searchTerm);
       
       if (aNameMatch && !bNameMatch) return -1;
       if (!aNameMatch && bNameMatch) return 1;
       
-      // Secondary sort by downloads if relevance is equal
-      return b.downloads - a.downloads;
+      // Secondary sort by update date
+      return new Date(b.updated) - new Date(a.updated);
     }
   });
 
@@ -189,46 +241,46 @@ function filterAndSortPlugins() {
   renderPlugins();
 }
 
-// Format large numbers with commas
-function formatNumber(num) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 // Format date as relative time
 function formatDate(dateString) {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffTime = now - date;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  if (!dateString) return 'unknown';
   
-  if (diffDays === 0) return 'today';
-  if (diffDays === 1) return 'yesterday';
-  if (diffDays < 7) return `${diffDays} days ago`;
-  
-  const diffWeeks = Math.floor(diffDays / 7);
-  if (diffWeeks === 1) return '1 week ago';
-  if (diffWeeks < 4) return `${diffWeeks} weeks ago`;
-  
-  const diffMonths = Math.floor(diffDays / 30);
-  if (diffMonths === 1) return '1 month ago';
-  if (diffMonths < 12) return `${diffMonths} months ago`;
-  
-  const diffYears = Math.floor(diffDays / 365);
-  return diffYears === 1 ? '1 year ago' : `${diffYears} years ago`;
+  try {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'today';
+    if (diffDays === 1) return 'yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    
+    const diffWeeks = Math.floor(diffDays / 7);
+    if (diffWeeks === 1) return '1 week ago';
+    if (diffWeeks < 4) return `${diffWeeks} weeks ago`;
+    
+    const diffMonths = Math.floor(diffDays / 30);
+    if (diffMonths === 1) return '1 month ago';
+    if (diffMonths < 12) return `${diffMonths} months ago`;
+    
+    const diffYears = Math.floor(diffDays / 365);
+    return diffYears === 1 ? '1 year ago' : `${diffYears} years ago`;
+  } catch (e) {
+    console.error('Error formatting date:', e);
+    return 'unknown';
+  }
 }
 
 // Debounce function for search input
 function debounce(func, delay) {
   let timeoutId;
-  return function() {
-    const context = this;
-    const args = arguments;
+  return function(...args) {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(context, args), delay);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
   };
 }
 
-// Set up event listeners (hamburger menu listeners removed)
+// Set up event listeners
 function setupEventListeners() {
   // Search and filter events
   searchInput.addEventListener('input', debounce(filterAndSortPlugins, 300));
@@ -253,48 +305,5 @@ function setupEventListeners() {
   });
 }
 
-// Initialize the application when DOM is loaded
+// Initialize the application
 document.addEventListener('DOMContentLoaded', init);
-
-function renderPlugins() {
-  pluginList.innerHTML = '';
-  
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedPlugins = filteredPlugins.slice(startIndex, endIndex);
-  
-  if (paginatedPlugins.length === 0) {
-    pluginList.innerHTML = '<div class="no-results">No plugins found matching your search</div>';
-    return;
-  }
-
-  paginatedPlugins.forEach(plugin => {
-    const pluginCard = document.createElement('div');
-    pluginCard.className = 'plugin-card';
-    pluginCard.innerHTML = `
-      <div class="plugin-header">
-        <div class="plugin-icon-container">
-          <img src="${plugin.icon_url || 'assets/default-plugin-icon.png'}" 
-               alt="${plugin.name} Icon" 
-               class="plugin-icon"
-               onerror="this.src='assets/default-plugin-icon.png'">
-        </div>
-        <div class="plugin-info">
-          <h3>${plugin.name} <span class="plugin-author">by ${plugin.author}</span></h3>
-          <div class="plugin-tags">
-            ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-          </div>
-        </div>
-      </div>
-      <p class="plugin-description">${plugin.description}</p>
-      <div class="plugin-stats">
-        <span>${formatNumber(plugin.downloads)} downloads</span>
-        ${plugin.followers ? `<span>${formatNumber(plugin.followers)} followers</span>` : ''}
-        <span>Updated ${formatDate(plugin.updated)}</span>
-      </div>
-    `;
-    pluginList.appendChild(pluginCard);
-  });
-  
-  updatePagination();
-}
