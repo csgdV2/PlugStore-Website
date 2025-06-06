@@ -255,3 +255,46 @@ function setupEventListeners() {
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
+
+function renderPlugins() {
+  pluginList.innerHTML = '';
+  
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedPlugins = filteredPlugins.slice(startIndex, endIndex);
+  
+  if (paginatedPlugins.length === 0) {
+    pluginList.innerHTML = '<div class="no-results">No plugins found matching your search</div>';
+    return;
+  }
+
+  paginatedPlugins.forEach(plugin => {
+    const pluginCard = document.createElement('div');
+    pluginCard.className = 'plugin-card';
+    pluginCard.innerHTML = `
+      <div class="plugin-header">
+        <div class="plugin-icon-container">
+          <img src="${plugin.icon_url || 'assets/default-plugin-icon.png'}" 
+               alt="${plugin.name} Icon" 
+               class="plugin-icon"
+               onerror="this.src='assets/default-plugin-icon.png'">
+        </div>
+        <div class="plugin-info">
+          <h3>${plugin.name} <span class="plugin-author">by ${plugin.author}</span></h3>
+          <div class="plugin-tags">
+            ${plugin.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+      <p class="plugin-description">${plugin.description}</p>
+      <div class="plugin-stats">
+        <span>${formatNumber(plugin.downloads)} downloads</span>
+        ${plugin.followers ? `<span>${formatNumber(plugin.followers)} followers</span>` : ''}
+        <span>Updated ${formatDate(plugin.updated)}</span>
+      </div>
+    `;
+    pluginList.appendChild(pluginCard);
+  });
+  
+  updatePagination();
+}

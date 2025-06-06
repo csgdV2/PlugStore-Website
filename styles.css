@@ -572,3 +572,35 @@ footer {
 .loading::before {
   content: "Loading plugins...";
 }
+
+/* Plugin Icon Styles */
+.plugin-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.plugin-icon-container {
+  flex-shrink: 0;
+}
+
+.plugin-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--secondary);
+  padding: 4px;
+}
+
+.plugin-info {
+  flex-grow: 1;
+}
+
+/* Fallback icon styling */
+.plugin-icon[src*="default-plugin-icon"] {
+  padding: 10px;
+  background: var(--secondary);
+  opacity: 0.8;
+}
