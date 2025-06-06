@@ -498,15 +498,6 @@ footer {
   font-weight: bold;
 }
 
-/* Error/Loading Messages */
-.no-results::before {
-  content: "No plugins found";
-}
-
-.loading::before {
-  content: "Loading plugins...";
-}
-
 /* Fallback icon styling */
 .plugin-icon[src*="default-plugin-icon"] {
   padding: 10px;
