@@ -7,18 +7,16 @@
     "tags": ["1.20+", "Skript [Latest]", "SkBee [Latest]"],
     "updated": "2024-01-01T00:00:00Z",
     "icon_url": "https://pbs.twimg.com/ext_tw_video_thumb/1661895582577770498/pu/img/k3cjZsCJD0yqgBYl.jpg",
-    "download_url": "https://github.com/csgdV2/PlugStore-Plugins/releases/download/Plugins/levels.sk"
+    "download_url": "https://github.com/csgdV2/PlugStore-Plugins/releases/download/Levels/levels.sk"
   },
   {
     "id": 2,
-    "name": "Sodium",
-    "author": "jellysquid3",
-    "description": "The fastest and most compatible...",
-    "tags": ["Client", "Optimization", "Fabric"],
-    "downloads": 54030000,
-    "followers": 24100,
-    "updated": "2023-04-10T00:00:00Z",
-    "icon_url": "https://pbs.twimg.com/profile_images/1876410306877878272/xF-FourB_400x400.jpg",
-    "download_url": "saas.com"
+    "name": "Kings SMP",
+    "author": "Poops",
+    "description": "Custom Weapons...",
+    "tags": ["1.20+", "Skript [2.9.2]", "SkBee [3.6.0]", "SkkQuery [4.1.10]"],
+    "updated": "2025-04-15T00:00:00Z",
+    "icon_url": "https://i.tlauncher.org/images/638188003223343161-1688759925.png",
+    "download_url": "https://github.com/csgdV2/PlugStore-Plugins/releases/download/Kings/Kings.SMP.zip"
   }
 ]
