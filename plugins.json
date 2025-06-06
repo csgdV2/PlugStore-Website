@@ -38,5 +38,15 @@
     "updated": "2025-06-06T00:00:00Z",
     "icon_url": "https://media.discordapp.net/attachments/1376197765671026818/1380549771496001586/6da27dab8f3d993f57a8c5d9e3595d2fac5f312f.png?ex=684448aa&is=6842f72a&hm=c566457437508dcc0c996459966e9a2859e4a38e1c51dab5158b88be6eeb9bdf&=&format=webp&quality=lossless&width=640&height=640",
     "download_url": "https://cdn.discordapp.com/attachments/1376197765671026818/1380548109645381813/KnowledgeSMPv3.sk?ex=6844471e&is=6842f59e&hm=8567098359ac5710a240fea9ba0849449a0dee340c410216c2ececd414a0be38&"
+  },
+  {
+    "id": 5,
+    "name": "Mark SMP",
+    "author": "BountyBear",
+    "description": "Blood Marks...",
+    "tags": ["1.21", "Skript [Latest]", "SkBee [Latest]", "SkRayFall [Latest]"],
+    "updated": "2025-03-16T00:00:00Z",
+    "icon_url": "https://media.discordapp.net/attachments/1376197765671026818/1380553950323015710/image.png?ex=68444c8f&is=6842fb0f&hm=48f1a8b7d9f08322e62468fd10b3a42928b178eb2f4e300164d269dfe7773a0c&=&format=webp&quality=lossless&width=438&height=430",
+    "download_url": "https://cdn.discordapp.com/attachments/1231301656797380618/1350547524456415263/mark_smp_remake_1.sk?ex=6843e6a5&is=68429525&hm=a4771e5878846e57d5617f334eb74b195c61ec87753aef8fd3aeeb7ed12f03b9&"
   }
 ]
