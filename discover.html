@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlugStore - Discover</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ── HEADER ──────────────────────────────────────────────── -->
+  <header>
+    <div class="logo">PlugStore</div>
+    
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <nav class="nav">
+      <a href="discover.html">Discover</a>
+      <a href="#">Discord</a>
+    </nav>
+  </header>
+
+<!-- ── SEARCH AND FILTERS ─────────────────────────────────── -->
+<main class="plugin-list-container">
+  <div class="search-filters">
+    <div class="search-bar">
+      <input type="text" placeholder="Search plugins..." class="search-input">
+    </div>
+    
+    <div class="filters">
+      <div class="filter-group">
+        <label>Sort by:</label>
+        <select class="filter-select" id="sort-by">
+          <option value="relevance">Relevance</option>
+          <option value="newest">Newest</option>
+        </select>
+</div>
+      
+      <div class="filter-group">
+        <label>View:</label>
+        <select class="filter-select" id="view-limit">
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Plugin LISTING ──────────────────────────────────────── -->
+  <div class="plugin-list" id="plugin-list">
+    <!-- Plugin cards will be inserted here by JavaScript -->
+  </div>
+
+  <!-- ── PAGINATION ──────────────────────────────────────── -->
+  <div class="pagination">
+    <button class="page-btn" id="prev-page">Previous</button>
+    <div class="page-numbers" id="page-numbers"></div>
+    <button class="page-btn" id="next-page">Next</button>
+  </div>
+</main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>About</h4>
+          <a href="#">Changelog</a>
+          <a href="#">Careers</a>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <a href="#">Help Center</a>
+          <a href="#">Translate</a>
+          <a href="#">Report Issues</a>
+          <a href="#">API docs</a>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <a href="#">Content Rules</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Security Notice</a>
+        </div>
+      </div>
+      
+      <p class="footer-copyright">
+        © 2025 Brink, Inc. • Modrinth is <span class="accent">open source</span>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/plugins.js"></script>
+</body>
+</html>
