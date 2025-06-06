@@ -48,5 +48,15 @@
     "updated": "2025-03-16T00:00:00Z",
     "icon_url": "https://media.discordapp.net/attachments/1376197765671026818/1380553950323015710/image.png?ex=68444c8f&is=6842fb0f&hm=48f1a8b7d9f08322e62468fd10b3a42928b178eb2f4e300164d269dfe7773a0c&=&format=webp&quality=lossless&width=438&height=430",
     "download_url": "https://cdn.discordapp.com/attachments/1231301656797380618/1350547524456415263/mark_smp_remake_1.sk?ex=6843e6a5&is=68429525&hm=a4771e5878846e57d5617f334eb74b195c61ec87753aef8fd3aeeb7ed12f03b9&"
+  },
+  {
+    "id": 6,
+    "name": "Infected SMP",
+    "author": "ccOOKED",
+    "description": "Infect Everyone...",
+    "tags": ["1.21", "Skript [Latest]", "SkBee [Latest]", "SkRayFall [Latest]"],
+    "updated": "2025-05-28T00:00:00Z",
+    "icon_url": "https://media.discordapp.net/attachments/1131883360877289482/1376679392960577566/raw_1.png?ex=68440bd8&is=6842ba58&hm=3b22bd9cc1a06dc84e3cd30d9026ac8dbdd0d98242004360562aa244c5d8c29c&=&format=webp&quality=lossless&width=438&height=438",
+    "download_url": "https://cdn.discordapp.com/attachments/1255402289263411222/1380657088564301976/infected_smp.sk?ex=6844ac9d&is=68435b1d&hm=d79e07a3f7027688c0afe418170f2f8b73dc56e4a1d6f01e6ec53b817089df2a&"
   }
 ]
