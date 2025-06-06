@@ -14,9 +14,19 @@
     "name": "Kings SMP",
     "author": "Poops",
     "description": "Custom Weapons...",
-    "tags": ["1.20+", "Skript [2.9.2]", "SkBee [3.6.0]", "SkkQuery [4.1.10]"],
+    "tags": ["1.20+", "Skript [2.9.2]", "SkBee [3.6.0]", "SkQuery [4.1.10]"],
     "updated": "2025-04-15T00:00:00Z",
     "icon_url": "https://i.tlauncher.org/images/638188003223343161-1688759925.png",
     "download_url": "https://github.com/csgdV2/PlugStore-Plugins/releases/download/Kings/Kings.SMP.zip"
+  },
+  {
+    "id": 3,
+    "name": "Angel vs Demon",
+    "author": "BountyBear",
+    "description": "Sharpness Video...",
+    "tags": ["1.20+", "Skript [2.9.4]", "SkBee [3.6.3]", "SkRayFall [1.9.28]"],
+    "updated": "2025-04-15T00:00:00Z",
+    "icon_url": "https://media.discordapp.net/attachments/1255402289263411222/1380546172225191936/image.png?ex=68444550&is=6842f3d0&hm=e780f07ee79877651c4cd4ea72f44447c57ef1ffe5a2444c431113a1c0ccf0ac&=&format=webp&quality=lossless&width=229&height=220",
+    "download_url": "https://github.com/csgdV2/PlugStore-Plugins/releases/download/angel/angle.sk"
   }
 ]
