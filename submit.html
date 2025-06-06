@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin Submission Form</title>
+    <style>
+        /* ── THEME VARS (dark) ─────────────────────────────── */
+        :root {
+          --bg:        #0e1016;
+          --text:      #ffffff;
+          --card:      #1a1c22;
+          --secondary: #2a2d35;
+          --accent:    #32d74b;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], 
+        input[type="number"],
+        input[type="file"],
+        select, 
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            background-color: var(--card);
+            color: var(--text);
+        }
+        
+        textarea {
+            height: 100px;
+        }
+        
+        .submit-btn {
+            background-color: var(--accent);
+            color: #000;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        small {
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Plugin Submission Form</h1>
+    <form action="/submit-plugin" method="post" enctype="multipart/form-data" netlify>
+        <div class="form-group">
+            <label for="name">Your Discord Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="plugin-name">Plugin Name:</label>
+            <input type="text" id="plugin-name" name="plugin-name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="completion">How complete is your plugin?</label>
+            <select id="completion" name="completion" required>
+                <option value="">Select an option</option>
+                <option value="early-development">In Development</option>
+                <option value="beta">Beta (Testing)</option>
+                <option value="complete">Complete/Stable</option>
+                <option value="abandoned">No Longer Maintained</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="version">Minecraft Version Compatibility:</label>
+            <input type="text" id="version" name="version" placeholder="e.g., 1.20.1, 1.19-1.20" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="dependencies">Dependencies (if any):</label>
+            <textarea id="dependencies" name="dependencies" placeholder="List any required plugins or libraries"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Plugin Description:</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="file">Plugin File:</label>
+            <input type="file" id="file" name="file" accept=".jar,.zip" required>
+            <small>Accepted formats: .jar, .zip</small>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="submit-btn">Submit Plugin</button>
+        </div>
+    </form>
+</body>
+</html>
