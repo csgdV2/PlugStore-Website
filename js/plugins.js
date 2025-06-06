@@ -8,7 +8,6 @@ const pageNumbers = document.getElementById('page-numbers');
 
 // GitHub configuration
 const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/csgdV2/PlugStore-Website/main/plugins.json';
-const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes cache
 
 // State variables
 let currentPage = 1;
@@ -24,48 +23,20 @@ async function init() {
 
 // Fetch plugins from GitHub
 async function fetchPlugins() {
-  const now = Date.now();
-  const cachedData = localStorage.getItem('githubPluginsData');
-  
-  // Use cached data if not expired
-  if (cachedData) {
-    const { data, timestamp } = JSON.parse(cachedData);
-    if (now - timestamp < CACHE_DURATION) {
-      allPlugins = data;
-      filteredPlugins = [...allPlugins];
-      renderPlugins();
-      return;
-    }
-  }
-
   try {
     showStatusMessage('Loading plugins...');
     
-    const response = await fetch(`${GITHUB_RAW_URL}?t=${now}`);
+    const response = await fetch(GITHUB_RAW_URL);
     if (!response.ok) throw new Error('Failed to fetch');
     
     const data = await response.json();
     allPlugins = Array.isArray(data) ? data : data.plugins || [];
     filteredPlugins = [...allPlugins];
     
-    // Update cache
-    localStorage.setItem('githubPluginsData', JSON.stringify({
-      data: allPlugins,
-      timestamp: now
-    }));
-    
     renderPlugins();
   } catch (error) {
     console.error('Error fetching plugins:', error);
     showStatusMessage('Failed to load plugins. Please try again later.', 'error');
-    
-    // Fallback to cached data if available
-    if (cachedData) {
-      const cached = JSON.parse(cachedData).data;
-      allPlugins = Array.isArray(cached) ? cached : cached.plugins || [];
-      filteredPlugins = [...allPlugins];
-      renderPlugins();
-    }
   }
 }
 
