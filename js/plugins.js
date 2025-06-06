@@ -8,7 +8,7 @@ const pageNumbers = document.getElementById('page-numbers');
 
 // GitHub configuration
 const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/csgdV2/PlugStore-Website/main/plugins.json';
-const CACHE_DURATION = 0 * 60 * 1000; // 30 minutes cache
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes cache
 
 // State variables
 let currentPage = 1;
