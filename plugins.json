@@ -20,5 +20,16 @@
     "followers": 24100,
     "updated": "2023-04-10T00:00:00Z",
     "icon_url": "https://example.com/sodium.png"
+  },
+  {
+    "id": 3,
+    "name": "csgd",
+    "author": "jellysquid3",
+    "description": "The fastest and most compatible...",
+    "tags": ["Client", "Optimization", "Fabric"],
+    "downloads": 540303000,
+    "followers": 24123200,
+    "updated": "2023-04-10T00:00:00Z",
+    "icon_url": "https://example.com/sodium.png"
   }
 ]
