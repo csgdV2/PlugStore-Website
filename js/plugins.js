@@ -7,7 +7,7 @@ const nextPageBtn = document.getElementById('next-page');
 const pageNumbers = document.getElementById('page-numbers');
 
 // GitHub configuration
-const GITHUB_RAW_URL = 'https://github.com/csgdV2/PlugStore-Website/blob/main/plugins.json';
+const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/csgdV2/PlugStore-Website/main/plugins.json';
 const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes cache
 
 // State variables
